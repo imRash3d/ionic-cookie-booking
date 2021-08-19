@@ -1,0 +1,45 @@
+<form class="ion-padding" [formGroup]="registrationForm">
+
+  <div class="wrap-input">
+    <input formControlName="FirstName" class="input" type="text" name="user-name" placeholder="First Name">
+  </div>
+  <div class="wrap-input">
+    <input formControlName="LastName" class="input" type="text" name="user-name" placeholder="Last Name">
+  </div>
+  <div class="wrap-input">
+    <input formControlName="Mobile" class="input" type="text" name="user-mobile" placeholder="Mobile Number">
+  </div>
+
+  <div class="wrap-input">
+    <input formControlName="Email" class="input" type="text" name="user-email" placeholder="Email">
+
+  </div>
+  <div class="ps-error" *ngIf="
+  registrationForm['controls'].Email.errors
+           &&
+          !registrationForm['controls'].Email.pristine
+  ">
+    <span class="p-0 mt-0">
+      Email In valid
+    </span>
+  </div>
+  <div class="wrap-input">
+    <input formControlName="Password" class="input" type="password" name="password" placeholder="Password">
+  </div>
+  <div class="wrap-input cf-input">
+    <input formControlName="CfPassword" class="input" type="password" name="cf-password" placeholder="Confirm Password">
+  </div>
+  <div class="ps-error">
+    <span
+      *ngIf="(registrationForm.get('Password').value!== registrationForm.get('CfPassword').value) && registrationForm.controls['CfPassword'].touched ">
+      Password don't match </span>
+  </div>
+  <div class="container-form-btn">
+    <button (click)="signUp()" [disabled]="!registrationForm.valid" class="form-btn custom-font">
+      Submit <ion-spinner *ngIf="loader" class="spinner-white" name="crescent"></ion-spinner>
+    </button>
+  </div>
+
+</form>
+<p class="ion-text-center custom-font m-t-2rem ">Already have an account? <a (click)="OnloginClick.emit(true)">Sign
+    In</a></p>

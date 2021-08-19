@@ -1,29 +1,89 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+  <ion-menu side="start" content-id="main-content"  menuId="first">
+    <!-- <ion-header>
+      <ion-toolbar translucent>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header> -->
+    <ion-content>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+      <div class="menu-header-bg"></div>
+      <div class="header-content">
+        <img *ngIf="isLogin" [src]="profileImg" alt="">
+        <ion-label *ngIf="isLogin">
+          <h2>{{displayName}}</h2>
+        </ion-label>
+       
+      </div>
+      <div class="action-button" *ngIf="isAdmin">
+        <ion-button (click)="navigate('add-product')">
+          <ion-icon slot="start" name="add"></ion-icon> Add Product
+        </ion-button>
+      </div>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+      <ion-list lines="none">
+        <ion-item *ngIf="!isLogin" (click)="navigate('auth')">
+          <ion-icon name="enter-outline" slot="start"></ion-icon>
+          <ion-label>Login</ion-label>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-icon  name="pie-chart-outline"></ion-icon>
+          <ion-label>Dashboard</ion-label>
+        </ion-item> -->
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+        <ion-item *ngIf="isLogin"  (click)="editProfile()">
+          <ion-icon name="create-outline"></ion-icon>
+          <ion-label>Edit profile</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="isLogin"  (click)="changePassword()">
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-label>Change Password </ion-label>
+        </ion-item>
+
+
+        <ion-item *ngIf="isLogin"  (click)="navigate('order-list')">
+          <ion-icon name="copy-outline"></ion-icon>
+          <ion-label>Order</ion-label>
+        </ion-item>
+        <ion-item *ngIf="isAdmin"  (click)="navigate('category')">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <ion-label>Category</ion-label>
+        </ion-item>
+        <ion-item *ngIf="isLogin"  (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-item>
+        <ion-item   (click)="navigate('about-us')">
+          <ion-icon name="globe-outline"></ion-icon>
+          <ion-label>About Us</ion-label>
+        </ion-item>
+        <ion-item   (click)="navigate('contact-us')">
+          <ion-icon name="chatbubbles-outline"></ion-icon>
+          <ion-label>Contact Us</ion-label>
+        </ion-item>
+        <!--   <ion-item>
+          <ion-icon name="heart" slot="start"></ion-icon>
+          <ion-label>Favorites</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="archive" slot="start"></ion-icon>
+          <ion-label>Archived</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="trash" slot="start"></ion-icon>
+          <ion-label>Trash</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="warning" slot="start"></ion-icon>
+          <ion-label>Spam</ion-label>
+        </ion-item> -->
+      </ion-list>
+
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </div>
 </ion-app>

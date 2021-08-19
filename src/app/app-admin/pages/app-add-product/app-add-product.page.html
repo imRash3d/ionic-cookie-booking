@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ editMode?'Update Product': 'New Product'  }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-spinner color="white" *ngIf="isLoading"></ion-spinner>
+      <!-- <ion-button form="product-form" (click)="onSubmit(form.value)" *ngIf="!this.isLoading"
+        [disabled]="!productForm.valid || !(formType === 'update' ? productForm?.image : image)">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form id="product-form" [formGroup]="productForm">
+    <ion-grid>
+      <ion-row>
+        <app-upload-image [editImgUrl]="editImgUrl" (onUploadEvent)="onUploadImageUrl($event)"></app-upload-image>
+
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Product Name</ion-label>
+            <ion-input formControlName="ProductName" type="text" name="name" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea formControlName="Description" rows="3" name="description" required></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Price</ion-label>
+            <ion-input formControlName="Price" type="number" name="name" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Total Quantity </ion-label>
+            <ion-input formControlName="TotalQty" type="number" name="name" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+     
+        <ion-select #newSelect placeholder="Select Category" formControlName="Category" >
+          <ion-select-option *ngFor="let category of categories" [value]="category.CategoryName"><span class="c-name">{{category.CategoryName}}</span></ion-select-option>
+       
+        </ion-select>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="save()" [disabled]="!productForm.valid" style="margin-top: 2rem;" color="danger"
+            mode="ios" expand="block" shape="round">
+            Save
+            <ion-spinner *ngIf="loader" class="spinner-white" name="crescent"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+
+
+    </ion-grid>
+  </form>
+</ion-content>

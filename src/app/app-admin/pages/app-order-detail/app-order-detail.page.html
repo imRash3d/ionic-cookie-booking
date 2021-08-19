@@ -1,0 +1,160 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" defaultHref="order-list"></ion-back-button>
+
+    </ion-buttons>
+    <ion-title color="light">Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top color="light">
+  <div>
+    <!-- <ion-row margin-horizontal margin-bottom>
+      <ion-text><strong class="text">Items in Cart</strong></ion-text>
+    </ion-row> -->
+
+    <ion-item lines="none" class="cart-item-card card" *ngFor="let orderItem of order?.OderDetail">
+      <ion-row *ngIf="orderItem && orderItem.ProductName">
+        <ion-col size="3" text-center>
+          <img class="product-img" [src]="orderItem.ImageUrl" alt="image">
+
+        </ion-col>
+        <ion-col size="8">
+          <h3 no-margin class="item-name">{{orderItem.ProductName}}</h3>
+          <h5 no-margin style="margin: 0;" class="item-def">{{orderItem.Description}} </h5>
+
+        </ion-col>
+        <ion-col size="12" float-right justify-content-end>
+          <ion-row>
+            <ion-col size="5">
+              <h3 class="item-name item-price ">${{orderItem.Price}} </h3>
+            </ion-col>
+            <ion-col size="7" float-right justify-content-end>
+              <h3 class="item-name  "> Quantity : {{orderItem.OrderQuanity}} </h3>
+            </ion-col>
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+    </ion-item>
+
+
+
+    <div lines="none" style="padding:10px" class="card cart-item-card " no-margin padding-bottom
+      *ngIf="order && isAdmin">
+      <ion-row margin>
+        <ion-text><strong class="text">Customer Detail</strong></ion-text>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="5">
+          <ion-text>Customer Name :</ion-text>
+        </ion-col>
+        <ion-col size="7" text-start>
+          <ion-text>{{order.FirstName}}</ion-text>
+          <ion-text> {{order.LastName}}</ion-text>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="5">
+          <ion-text>Customer Email :</ion-text>
+        </ion-col>
+        <ion-col size="7" text-end>
+          <ion-text>{{order.Email}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="5">
+          <ion-text>Delivery Address:</ion-text>
+        </ion-col>
+        <ion-col size="7" text-start>
+          <ion-text>{{order.Address}} </ion-text>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+    <div lines="none" style="padding:10px" class="card cart-item-card " no-margin padding-bottom
+      *ngIf="order?.OderDetail">
+      <ion-row margin>
+        <ion-text><strong class="text">Order Summary</strong></ion-text>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text>OrderId</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>#{{order.ItemId}}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text>Sub Total</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{order.Total}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text>Delivery Charge</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{deliveryCarge}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text> Total</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{order.Total}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <div class="sep"></div>
+
+      <ion-row>
+        <ion-col size="7">
+          <h4><strong>Order Status </strong></h4>
+        </ion-col>
+        <ion-col size="4" text-end>
+          <ion-badge>
+            <ion-icon name="flash"></ion-icon>
+            {{order.Status}}
+          </ion-badge>
+        </ion-col>
+      </ion-row>
+
+
+
+    </div>
+
+
+    <div lines="none" style="padding:10px" class="card cart-item-card " no-margin padding-bottom
+      *ngIf="order?.OderDetail && isAdmin && order.Status!=='completed'">
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>
+            Change Oder Status
+          </ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Order Status</ion-label>
+          <ion-select #newSelect placeholder="Select One" [(ngModel)]="orderStatus" (ionChange)="onChange(orderStatus)">
+            <ion-select-option value="inprogress">Inprogress</ion-select-option>
+            <ion-select-option value="completed">Completed</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+
+      </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>

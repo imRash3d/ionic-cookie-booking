@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <div class="back-circle"></div>
+    <ion-title class="ion-text-center custom-font">
+      <span> Order List</span>
+
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div class="ion-padding">
+
+    <ion-card (click)="naviage(order.ItemId)" *ngFor="let order of orderList">
+ 
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="10">
+            <ion-card-subtitle class="no">Created Date : {{order.CreatedDate | date:'medium'}}</ion-card-subtitle>
+            <ion-card-title>#{{order.ItemId}}</ion-card-title>
+            <ion-card-subtitle *ngIf="isAdmin" class="no"> {{order.Email}}</ion-card-subtitle>
+            <ion-card-subtitle>
+              <ion-badge>
+                <ion-icon name="flash"></ion-icon>
+                {{order.Status}}
+              </ion-badge>
+            </ion-card-subtitle>
+          </ion-col>
+       
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  
+
+  </div>
+</ion-content>

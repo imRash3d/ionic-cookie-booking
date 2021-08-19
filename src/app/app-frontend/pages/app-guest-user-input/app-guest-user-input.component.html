@@ -1,0 +1,59 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="checkout" (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <div class="back-circle"></div>
+    <ion-title class="ion-text-center custom-font">
+      <span> Guest User info</span>
+
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+
+
+  <div class="ion-padding">
+
+
+    <form class="ion-padding" [formGroup]="userForm">
+
+      <div class="wrap-input">
+        <input formControlName="FirstName" class="input" type="text" name="user-name" placeholder="First Name">
+      </div>
+      <div class="wrap-input">
+        <input formControlName="LastName" class="input" type="text" name="user-name" placeholder="Last Name">
+      </div>
+
+      <div class="wrap-input">
+        <input formControlName="Email" class="input" type="text" name="user-mobile" placeholder="Email">
+      </div>
+
+      <div class="ps-error" *ngIf="
+      userForm['controls'].Email.errors
+               &&
+              !userForm['controls'].Email.pristine
+      ">
+        <span class="p-0 mt-0">
+          Email In valid
+        </span>
+      </div>
+
+      <div class="container-form-btn">
+        <ion-button (click)="closeModal()" [disabled]="!userForm.valid" color="danger" mode="ios" expand="block"
+          shape="round">
+
+          Submit <ion-spinner *ngIf="loader" class="spinner-white" name="crescent"></ion-spinner>
+        </ion-button>
+        <!-- <button (click)="signUp()" [disabled]="!userForm.valid" class="form-btn custom-font">
+        
+        </button> -->
+      </div>
+
+    </form>
+  </div>
+
+</ion-content>

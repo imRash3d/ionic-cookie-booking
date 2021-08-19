@@ -1,0 +1,125 @@
+ion-toolbar {
+  --background: rgb(244 245 248);
+}
+
+
+.white {
+    color: white;
+  }
+  .circle {
+    border-radius: 40px;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+  }
+  .input {
+    background-color: rgba(240, 240, 240, 0.5);
+    border-radius: 3px;
+    border: 1px solid rgb(240, 240, 240);
+    font-size: 0.9em !important;
+  }
+  .pad {
+    padding: 0 6px;
+  }
+  .mid {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+  .full {
+    width: 100%;
+  }
+  .cut {
+    color: rgb(120, 120, 120);
+    text-decoration: line-through;
+  }
+  .blue {
+    color: blue;
+  }
+  .sep {
+    height: 1px;
+    background-color: rgb(210, 210, 210);
+    width: 100vw;
+    margin: 6px 0;
+  }
+  .text {
+    font-size: 0.81em;
+  }
+  .select {
+    background-color: rgb(240, 240, 240);
+    border-radius: 3px;
+    border: 1px solid rgb(210, 210, 210);
+    padding: 6px 12px;
+    min-width: 100%;
+  }
+  .card {
+    background-color: white;
+    margin-top: 9px;
+  }
+  .item-name {
+    
+  }
+  .cart-item-card {
+    background-color: white;
+    margin-top: 9px;
+    margin: 9px;
+    border-radius: 10px;
+  }
+  div {
+    min-width: 100%;
+  }
+  .item-price {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    width: 76px;
+    margin-top: 10px;
+  }
+  .item-name {
+    font-size: 1em;
+    color: rgb(12, 12, 12);
+    font-weight: bold;
+  }
+  .price-icon-plus {
+    padding: 4px;
+    padding-right: 10px;
+  }
+  .price-icon-minus {
+    padding-left: 12px;
+    padding: 4px;
+  }
+.product-img {
+  height: 92px;
+  margin-right: 38px;
+  margin-top: 14px;
+  border-radius: 10px;
+  width: 95px;
+}
+  .icon-close {
+    position: absolute;
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+
+  .cart-increment-dec {
+    margin-top: 3rem;
+  
+    border-radius: 10px;
+    padding: 5px 5px 0px 5px;
+  }
+  .small {
+    margin: 0;
+    font-size: 0.81em;
+  }
+  .item-def {
+    font-size: 0.81em;
+    color: rgb(120, 120, 120);
+  }
+
+  .empty-cart {
+    text-align: center;
+    margin: 11%;
+    font-size: 17px;
+    font-weight: bold;
+  }

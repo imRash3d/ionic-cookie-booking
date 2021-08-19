@@ -1,0 +1,206 @@
+<ion-header class="ion-no-border">
+  <ion-item lines="none">
+    <ion-icon (click)="naviageCart()"  slot="end" name="basket-outline"></ion-icon>
+   
+    <ion-label>
+      <h2>Cookies Delight</h2>
+      <!-- <p>Habib Dev.</p> -->
+    </ion-label>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-item>
+</ion-header>
+
+
+
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding wrapper">
+  
+
+    <ion-row class="ion-align-items-baseline">
+    
+      <ion-col size="5">
+      <ion-select  class="p-category " #newSelect placeholder="Select Category" [(ngModel)]="categoryFilter"  (ionChange)="onChange(categoryFilter)">
+        <ion-select-option *ngFor="let category of pCategories" [value]="category.CategoryName"><span class="c-name">{{category.CategoryName}}</span></ion-select-option>
+      </ion-select>
+    </ion-col>
+    
+    <ion-col size="7" text-end>
+      <ion-icon class="reset-icon" (click)="reset()" text-end name="options-outline"></ion-icon>
+    </ion-col>
+   
+    </ion-row >
+
+
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col size="6">
+          <h4 class="title">
+            Popular Dishes
+          </h4>
+        </ion-col>
+        <ion-col size="6">
+          <!-- <h4 class="more ion-text-end">
+            View more
+          </h4> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </div>
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col size="12">
+          <ion-slides [options]="options">
+            <ion-slide *ngFor="let product of productListSlider">
+              <ion-card class="card" (click)="detail(product.ItemId)">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img [src]="product.ImageUrl"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">{{product.ProductName}}</ion-card-title>
+                  <ion-card-subtitle>{{product.Description}}</ion-card-subtitle>
+                  <ion-card-subtitle class="price-tag">${{product.Price}} </ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <!-- <ion-slide>
+              <ion-card class="card">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img src="https://images.pexels.com/photos/793759/pexels-photo-793759.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">Some Awesome Dish Title</ion-card-title>
+                  <ion-card-subtitle>Some description here</ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-half"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="card">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img src="https://images.pexels.com/photos/1291712/pexels-photo-1291712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">Some Awesome Dish Title</ion-card-title>
+                  <ion-card-subtitle>Some description here</ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="card">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">Some Awesome Dish Title</ion-card-title>
+                  <ion-card-subtitle>Some description here</ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="card">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">Some Awesome Dish Title</ion-card-title>
+                  <ion-card-subtitle>Some description here</ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            
+            <ion-slide>
+              <ion-card class="card">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img src="https://images.pexels.com/photos/361184/asparagus-steak-veal-steak-veal-361184.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">Some Awesome Dish Title</ion-card-title>
+                  <ion-card-subtitle>Some description here</ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>-->
+          </ion-slides> 
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+        
+         
+              <ion-card class="card product-list-horizontal" (click)="detail(product.ItemId)" *ngFor="let product of productList">
+                <ion-card-content class="ion-text-left">
+                  <div class="img-wrapper">
+                    <ion-img [src]="product.ImageUrl"></ion-img>
+                  </div>
+                  
+                  <ion-card-title class="title">{{product.ProductName}}</ion-card-title>
+                  <ion-card-subtitle>{{product.Description}}</ion-card-subtitle>
+                  <ion-card-subtitle class="price-tag">${{product.Price}} </ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-card-subtitle>
+                </ion-card-content>
+              </ion-card>
+           
+        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
+      
+    
+  </ion-content>

@@ -1,0 +1,169 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top color="light">
+  <div>
+    <!-- <ion-row margin-horizontal margin-bottom>
+      <ion-text><strong class="text">Items in Cart</strong></ion-text>
+    </ion-row> -->
+
+    <ion-item lines="none" class="cart-item-card card" *ngFor="let cart of cartItems">
+      <ion-row *ngIf="cart">
+        <ion-col size="3" text-center>
+          <img class="product-img" [src]="cart.Product.ImageUrl" alt="image">
+
+        </ion-col>
+        <ion-col size="6">
+          <h3 no-margin class="item-name">{{cart.Product.ProductName}}</h3>
+          <h5 no-margin style="margin: 0;" class="item-def">{{cart.Product.Description}} </h5>
+          <h3 class="item-name item-price ">${{cart.Product.Price}} </h3>
+        </ion-col>
+        <ion-col size="3" float-right justify-content-end>
+          <ion-row text-center justify-content-end>
+            <ion-icon (click)="deleteCart(cart)" color="danger" name="close" class="icon-close"></ion-icon>
+          </ion-row>
+          <ion-row text-end justify-content-end class="cart-increment-dec ">
+            <span (click)="addQuantity(cart)" class="price-icon-plus">
+              <ion-icon name="add"></ion-icon>
+            </span>
+            <span>{{cart.Quantity}}</span>
+            <span (click)="removeQuantity(cart)" class="price-icon-minus">
+              <ion-icon name="remove"></ion-icon>
+            </span>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <!-- <ion-item lines="none" class="cart-item-card card">
+      <ion-row>
+        <ion-col size="3" text-center>
+          <img class="product-img"
+            src="https://images.pexels.com/photos/1437629/pexels-photo-1437629.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            alt="image">
+
+        </ion-col>
+        <ion-col size="6">
+          <h3 no-margin class="item-name">Creamy Nacos </h3>
+          <h5 no-margin style="margin: 0;" class="item-def">With maxican salad </h5>
+
+          <h3 class="item-name item-price ">$5</h3>
+        </ion-col>
+        <ion-col size="3" float-right justify-content-end>
+          <ion-row text-center justify-content-end>
+            <ion-icon color="danger" name="close" class="icon-close"></ion-icon>
+          </ion-row>
+          <ion-row text-end justify-content-end class="cart-increment-dec ">
+            <span class="price-icon-plus">
+              <ion-icon name="add"></ion-icon>
+            </span>
+            <span>1</span>
+            <span class="price-icon-minus">
+              <ion-icon name="remove"></ion-icon>
+            </span>
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+    </ion-item> -->
+
+
+
+
+
+    <div lines="none" style="padding:10px" class="card cart-item-card " no-margin padding-bottom
+      *ngIf="cartItems.length">
+      <ion-row margin>
+        <ion-text><strong class="text">Order Summary</strong></ion-text>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text>Sub Total</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{subTotal}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text>Delivery Charge</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{deliveryCarge}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="full" padding-horizontal>
+        <ion-col size="9">
+          <ion-text> Total</ion-text>
+        </ion-col>
+        <ion-col size="3" text-end>
+          <ion-text>${{total}} </ion-text>
+        </ion-col>
+      </ion-row>
+      <div class="sep"></div>
+      <ion-row>
+        <ion-col>
+          <ion-text class="item-def" text-start>
+            <div class="pad">
+              By tapping 'Checkout' you aggree to the <a class="mycolor">Terms of Use</a>
+              and <a class="mycolor">Privacy Policy</a>
+            </div>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <!-- <div class="sep"></div>
+      <ion-row>
+        <ion-col>
+          <ion-text class="item-def" text-start padding-bottom>
+            <div class="mycolor pad">
+              30 Day Free Return and Refund
+            </div>
+          </ion-text>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="checkout()" style="margin-top: 2rem;" color="danger" mode="ios" expand="block"
+            shape="round">
+            Checkout
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+    </div>
+
+
+    <div   *ngIf="!cartItems.length  && !loader ">
+      <ion-row>
+        <ion-col>
+          <ion-text class="item-def" text-center>
+            <div class="pad">
+              <img class="empty-cart-img" src="https://www.kindpng.com/picc/m/174-1749396_empty-cart-your-cart-is-empty-hd-png.png"
+                alt="">
+              <!-- <p class="empty-cart">
+                Your Cart is empty <a defaultHref="home" class="mycolor">back to shopping</a>
+              </p> -->
+
+            </div>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+
+</ion-content>
+<!-- <ion-footer (click)="checkout()">
+  <ion-toolbar color="success">
+    <ion-title>Checkout</ion-title>
+  </ion-toolbar>
+</ion-footer> -->

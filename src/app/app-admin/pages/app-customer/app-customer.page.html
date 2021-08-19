@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <div class="back-circle"></div>
+    <ion-title class="ion-text-center custom-font">
+      <span> Customers</span>
+
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="ion-padding">
+
+
+
+    <div class="clr-row">
+      <div class="clr-col-lg-6 clr-col-12">
+        <div class="card">
+       
+ 
+
+          <div class="card-block">
+        
+
+            <table class="table table-vertical table-compact ion-no-margin">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Created Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of customers">
+                  <td>{{customer.FirstName}} {{customer.LastName}}</td>
+                  <td>{{customer.Email}} </td>
+                  <td>{{customer.CreatedDate | date }} </td>
+                  <td>Details</td>
+                </tr>
+              
+              </tbody>
+            </table>
+
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+ 
+
+  </div>
+
+</ion-content>
