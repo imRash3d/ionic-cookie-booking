@@ -18,6 +18,7 @@ export class AuthenticationService {
     reloadUser = new BehaviorSubject(null)
     cookieOptions: any;
     API_URL = environment.API_URL;
+    currentUser:any;
     constructor(
         private storage: Storage,
         private http: HttpService,
@@ -29,18 +30,18 @@ export class AuthenticationService {
 
 
 
- forgetPassword(data){
-    return this.http.post('account/forget-password', data)
- }
+    forgetPassword(data) {
+        return this.http.post('account/forget-password', data)
+    }
 
- setNewPassword(data){
-    return this.http.post('account/set-new-password', data)
- }
+    setNewPassword(data) {
+        return this.http.post('account/set-new-password', data)
+    }
 
 
     login(data) {
 
-        return this.http.post('account/login', data).pipe(tap(async (resposne: any) => {
+        return this.http.post('account/login', data).pipe(map((resposne: any) => {
             if (resposne.Success) {
                 //   console.log(resposne)
                 const data = {
@@ -53,18 +54,22 @@ export class AuthenticationService {
                     DisplayName: decodedToken.name,
                     UserId: decodedToken.nameid,
                     Role: 'customer',
+                    token: resposne.Result.Token
                 }
                 console.log(userModel)
                 this.loggedInuser.next(userModel);
-                await this.storage.set("currentUser", data);
+                this.currentUser = userModel;
+                this.storage.set("currentUser", userModel).then(_r => {
 
-                return ({ result: true, message: 'success' });
+                })
+
+                return ({ Success: true, message: 'success' });
 
             } else {
-                return ({ result: false, message: 'Login faild . Wrong email or password' });
+                return ({ Success: false, message: 'Login faild . Wrong email or password' });
             }
-        },err=>{
-            return ({ result: false, message: 'Login faild . Wrong email or password' });
+        }, err => {
+            return ({ Success: false, message: 'Login faild . Wrong email or password' });
         }))
 
 
@@ -99,8 +104,8 @@ export class AuthenticationService {
     async getCurrentUser() {
         return this.storage.get('currentUser').then(resposne => {
             if (resposne) {
-                const decodedToken = jwt_decode(resposne.token);
-                return decodedToken
+                // const decodedToken = jwt_decode(resposne.token);
+                return resposne
             }
             return null;
 
@@ -142,4 +147,7 @@ export class AuthenticationService {
     sendMail(userdata) {
         return this.http.post('sendmail', userdata);
     }
+
+
+   
 }

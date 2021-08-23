@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-auth',
@@ -8,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class AppAuthPage implements OnInit {
   isShowSignUp = false;
   isShowlogin = true;
-  
-  constructor() { }
-  bg:string='../../assets/sign-in.jpg';
+
+
+
+  constructor() {
+
+  }
+
+  bg: string = '../../assets/sign-in.jpg';
   ngOnInit() {
   }
   showSignUp() {

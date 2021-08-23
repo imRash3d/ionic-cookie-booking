@@ -9,7 +9,7 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./product-list-view.page.scss'],
 })
 export class ProductListViewPage implements OnInit {
-  pCategories = [];
+  pCategories = [{CategoryName:'Sweets'}];
   productListSlider: Product[] = [];
   productList: Product[] = [];
   loading;

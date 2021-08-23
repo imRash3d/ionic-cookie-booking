@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared-data/core/guards/auth.guard';
 
 const routes: Routes = [
   // {
@@ -15,7 +16,8 @@ const routes: Routes = [
 
   {
     path: 'home',
-    loadChildren: () => import('./app-frontend/pages/product-list-view/product-list-view.module').then( m => m.ProductListViewPageModule)
+    loadChildren: () => import('./app-frontend/pages/product-list-view/product-list-view.module').then( m => m.ProductListViewPageModule),
+   // canActivate: [AuthGuard],
   },
   {
     path: 'cart',

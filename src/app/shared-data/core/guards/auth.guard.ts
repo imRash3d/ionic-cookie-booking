@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-
+import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../services/auth.service';
-import { CommonService } from '../../services/common.service';
-
 
 
 @Injectable({
@@ -11,27 +9,25 @@ import { CommonService } from '../../services/common.service';
 })
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router,
-        private commonService: CommonService,
 
-        private authService: AuthenticationService) { }
+    currentAuthToken = null;
+    constructor(
+        private router: Router,
+        private storage: Storage,
+        private auth: AuthenticationService
+    ) {
+
+    }
 
     canActivate() {
-        // const token = this.authService.getToken();
 
-        // if (token) {
+        if (this.auth.currentUser) {
+            return true
+        } else {
+            this.router.navigate(['/auth']);
+            return true;
+        }
 
-        //     if (token) {
-        //         return true;
-        //     } else {
-        //         this.commonService.showMessage({ message: 'Your session has expired' });
-        //         this.router.navigate(['auth/login']);
-        //         return false;
-        //     }
-        // }
-
-        // this.router.navigate(['auth/login']);
-        return true;
     }
 
 }

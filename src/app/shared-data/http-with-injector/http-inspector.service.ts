@@ -1,41 +1,62 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { from, Observable, of } from 'rxjs';
 
 import { Storage } from '@ionic/storage';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '../core/services/auth.service';
 @Injectable()
 export class HttpInspectorService implements HttpInterceptor {
 
-    currentAuthToken=null;
+    currentAuthToken = null;
     constructor(
-        private storage: Storage
+        private storage: Storage,
+        private authService: AuthenticationService
     ) {
         this.storage.get('currentUser').then((val) => {
-            console.log('Your token', val);
             if (val) {
                 this.currentAuthToken = val;
+                console.log(this.currentAuthToken)
             }
         });
     }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // add authorization header with jwt token if available
-     
-        if (this.currentAuthToken && this.currentAuthToken.token) {
-            const headers = {
-                'Authorization': `Bearer ${this.currentAuthToken.token}`,
-            };
-            if (request.responseType === 'json') {
-                headers['Content-Type'] = 'application/json';
-            }
-            request = request.clone({
-                setHeaders: headers
-            });
-        }
 
-        return next.handle(request);
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        // YOU CAN ALSO DO THIS
+        // const token = this.authenticationService.getToke()
+
+        return from(this.storage.get('currentUser'))
+            .pipe(
+                switchMap(currentUser => {
+                    if (currentUser && currentUser.token) {
+                        this.authService.currentUser = currentUser;
+                        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + currentUser.token) });
+                    }
+
+                    if (!request.headers.has('Content-Type')) {
+                        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+                    }
+
+
+
+                    return next.handle(request).pipe(
+                        map((event: HttpEvent<any>) => {
+                            if (event instanceof HttpResponse) {
+                                // do nothing for now
+                            }
+                            return event;
+                        }),
+
+                    );
+                })
+            );
+
+
     }
+
+
+
 
 }

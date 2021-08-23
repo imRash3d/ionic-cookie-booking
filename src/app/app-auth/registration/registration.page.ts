@@ -51,26 +51,21 @@ export class RegistrationPage implements OnInit {
 
           // console.log(resposne)
           //  this.loading = false;
-          if (resposne.result) {
-            const loginData = {
-              Email: dataModel.Email,
-              Password: dataModel.Password,
-            }
-            this.authenticationService.login(loginData).subscribe((loginRes:any) => {
+          if (resposne.Success) {
+            this.commonService.showMessage({ message: "Register Successfully" })
+            setTimeout(() => {
               this.loader = false;
-              if (loginRes.result) {
-                this.registrationForm.reset();
-                this.router.navigate(['home']);
-              } else {
-                this.commonService.showMessage({ message: loginRes.message })
-              }
-            })
+              this.registrationForm.reset();
+              this.router.navigate(['/auth']);
+            }, 300);
           } else {
-            this.commonService.showMessage({ message: resposne.message })
+            this.loader = false;
+            this.commonService.showMessage({ message:"Failed to create user Successfully" })
           }
         },
           error => {
-            this.commonService.showMessage({ message: 'Some thing wrong !! Failed to create user' })
+            this.loader = false;
+            this.commonService.showMessage({ message: error.error.ErrorMessage })
 
           }
         );

@@ -73,7 +73,8 @@ export class AppComponent implements OnInit {
 
     this.authService.logout().then(res => {
       this.authService.loggedInuser.next(false);
-      this.menu.close('first')
+      this.menu.close('first');
+      this.router.navigateByUrl('/welcome')
     })
   }
   ngOnInit() {
@@ -87,7 +88,7 @@ export class AppComponent implements OnInit {
 
     this.authService.getCurrentUser().then(resposne => {
       this.authService.loggedInuser.next(resposne)
-    //  this.seDefaultSettings(resposne)
+      this.seDefaultSettings(resposne)
     })
 
 
