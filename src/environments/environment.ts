@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
  // API_URL:'http://localhost:3000/api/'
- API_URL:'http://food.rash3d.xyz/api/'
+ API_URL:'https://cookiebooking.azurewebsites.net/api/'
   // API_URL:'http://localhost:5001/musicbuzz-f9860/us-central1/app/api/'
   // API_URL:'https://us-central1-musicbuzz-f9860.cloudfunctions.net/app/api/'
 };

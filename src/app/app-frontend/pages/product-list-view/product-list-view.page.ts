@@ -62,8 +62,8 @@ export class ProductListViewPage implements OnInit {
   getFeatureProduct() {
     this.productService.getProductList().subscribe(response => {
       this.loading.dismiss();
-      if (response.result) {
-        this.productListSlider = response.data;
+      if (response.Success) {
+        this.productListSlider = response.Result;
         this.productListSlider = this.productListSlider.slice(0, 4)
  
       }
@@ -72,8 +72,8 @@ export class ProductListViewPage implements OnInit {
   getProductList(category?) {
     this.productService.getProductList(category).subscribe(response => {
   
-      if (response.result) {
-        this.productList = response.data;
+      if (response.Success) {
+        this.productList = response.Result;
         this.loading.dismiss();
       }
     })

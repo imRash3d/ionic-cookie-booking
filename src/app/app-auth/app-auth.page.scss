@@ -5,10 +5,7 @@
   ion-toolbar {
     --background: transparent;
   
-    ion-title {
-      padding: 20px 0 46px 0;
-      font-weight: 900;
-    }
+
   
     p {
       padding: 40px 0 20px 0;
@@ -16,17 +13,17 @@
     }
   
     .back-circle {
-      z-index: -1;
-      width: 200px;
-      height: 200px;
-      background: #e5ecf1;
-      position: absolute;
-      border-radius: 50%;
-      margin-left: auto;
-      margin-right: auto;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      // z-index: -1;
+      // width: 200px;
+      // height: 200px;
+      // background: #e5ecf1;
+      // position: absolute;
+      // border-radius: 50%;
+      // margin-left: auto;
+      // margin-right: auto;
+      // left: 0;
+      // right: 0;
+      // bottom: 0;
   
     }
   
@@ -38,9 +35,21 @@
       margin-top: 2rem;
   }
   ion-content {
+  color: #000;
+  // --background: url(../../assets/sign-in.jpg) 0 0/100% 100% no-repeat;
   
-    --background: rgba(237, 242, 245, .8);
-  
+  .auth-page {
+    background: url(../../assets/sign-in.jpg) 0 0/100% 100% no-repeat;
+    height: 100%;
+    width: 100%;
+  }
+
+
+.back-btn {
+  background: transparent;
+  position: absolute;
+}
+
     .back-blob {
       z-index: -1;
       width: 600px;
@@ -48,16 +57,30 @@
       left: -50%;
       top: 0;
     }
-  
+
+    .ion-padding{
+      margin-top: -20%;
+    }
+  .title {
+     text-align: center;
+     color: #000;
+      font-weight: 900;
+      padding-top: 20%;
+      font-size: 25px;
+    }
     form {
       margin-top: 100px;
     }
   
+    app-login , app-registration{
+      color: #000;
+    }
+
     .wrap-input {
       background-color: rgba(255, 255, 255, .8);
       border-radius: 20px;
       margin-bottom: 26px;
-      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
     }
   
     .input {
@@ -85,7 +108,7 @@
       padding: 0 20px;
       min-width: 160px;
       height: 42px;
-      background-color: #394752;
+      background-color: #FFA663      ;
       border-radius: 20px;
       font-size: 14px;
       color: #FFFFFF;
@@ -96,7 +119,7 @@
     }
   
     .form-btn:hover {
-      background-color: #28333b;
+      background-color: #FFA663;
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.8);
     }
   

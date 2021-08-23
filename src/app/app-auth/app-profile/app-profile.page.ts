@@ -39,11 +39,11 @@ export class AppProfilePage implements OnInit {
     this.userId = this.route.snapshot.params.userId;
     this.authenticationService.getuserDetail(this.route.snapshot.params.userId).subscribe(res => {
       console.log(res)
-      if (res.result) {
-        if(res.data.ProfileImageUrl) {
-          this.editImgUrl = res.data.ProfileImageUrl;
+      if (res.Success) {
+        if(res.Result.ProfileImageUrl) {
+          this.editImgUrl = res.Result.ProfileImageUrl;
         }
-        this.userForm.patchValue(res.data)
+        this.userForm.patchValue(res.Result)
       }
     })
   }

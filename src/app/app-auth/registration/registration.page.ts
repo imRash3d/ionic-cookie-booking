@@ -56,7 +56,7 @@ export class RegistrationPage implements OnInit {
               Email: dataModel.Email,
               Password: dataModel.Password,
             }
-            this.authenticationService.login(loginData).subscribe(loginRes => {
+            this.authenticationService.login(loginData).subscribe((loginRes:any) => {
               this.loader = false;
               if (loginRes.result) {
                 this.registrationForm.reset();

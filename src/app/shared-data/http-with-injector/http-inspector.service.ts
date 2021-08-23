@@ -1,41 +1,41 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 import { Storage } from '@ionic/storage';
+import { map } from 'rxjs/operators';
+import { AuthenticationService } from '../core/services/auth.service';
 @Injectable()
 export class HttpInspectorService implements HttpInterceptor {
 
+    currentAuthToken=null;
     constructor(
-        private storage: Storage,
+        private storage: Storage
     ) {
+        this.storage.get('currentUser').then((val) => {
+            console.log('Your token', val);
+            if (val) {
+                this.currentAuthToken = val;
+            }
+        });
     }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // add authorization header with jwt token if available
+     
+        if (this.currentAuthToken && this.currentAuthToken.token) {
+            const headers = {
+                'Authorization': `Bearer ${this.currentAuthToken.token}`,
+            };
+            if (request.responseType === 'json') {
+                headers['Content-Type'] = 'application/json';
+            }
+            request = request.clone({
+                setHeaders: headers
+            });
+        }
 
-        return next.handle(req) as any;
-        // return this.storage.get('currentUser').then((val) => {
-        //     console.log('Your token', val);
-        //     const current_user = val;
-
-        //     if (current_user) {
-        //         const authReq = req.clone({
-        //             headers: req.headers.set('Authorization', 'Bearer ' + current_user.token),
-        //         });
-        //         // send the newly created request
-        //         return next.handle(authReq) as any;
-        //     } else {
-
-        //         // send the newly created request
-        //         return next.handle(req) as any;
-        //     }
-
-
-
-
-        // });
-
-
+        return next.handle(request);
     }
 
 }

@@ -13,6 +13,6 @@ export class AppWelcomePage implements OnInit {
   ngOnInit() {
   }
   goHome() {
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/auth')
   }
 }

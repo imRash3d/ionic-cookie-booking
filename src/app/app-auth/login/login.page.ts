@@ -46,16 +46,20 @@ loader = false ;
     );
   }
 
+  forgotPs(){
+    this.router.navigate(['/auth/forget-password']);
+  }
   login() {
     this.loader = true;
     const dataModel = {
       Email:this.loginFOrm.value.Email.trim(),
       Password:this.loginFOrm.value.Password.trim(),
     }
-    this.authService.login(dataModel).subscribe(response => {
+    this.authService.login(dataModel)
+    .subscribe((response:any) => {
       this.loader = false; 
       console.log(response)
-      if(!response.result){
+      if(!response.Success){
         this.commonServie.showMessage({message:"Login Failed !! Email or password don't match "}).then(r=> {
 
         })
@@ -63,8 +67,8 @@ loader = false ;
         this.router.navigate(['home']);
       }
     },err=> {
-      this.commonServie.showMessage({message:err}).then(r=> {
-
+      this.commonServie.showMessage({message:err.error}).then(r=> {
+        this.loader = false; 
       })
     })
   }

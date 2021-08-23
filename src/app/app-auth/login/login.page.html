@@ -8,6 +8,7 @@
     <input formControlName="Password" class="input" type="password" name="password" placeholder="Password">
   </div>
 
+  <p class="ion-text-center custom-font m-t-2rem"><a (click)="forgotPs()" >Forgot Password?</a></p>
   <div class="container-form-btn">
     <button [disabled]="!loginFOrm.valid" (click)="login()" class="form-btn custom-font">
       Submit <ion-spinner *ngIf="loader" class="spinner-white" name="crescent"></ion-spinner>

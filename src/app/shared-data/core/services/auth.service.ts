@@ -27,16 +27,35 @@ export class AuthenticationService {
 
     }
 
+
+
+ forgetPassword(data){
+    return this.http.post('account/forget-password', data)
+ }
+
+ setNewPassword(data){
+    return this.http.post('account/set-new-password', data)
+ }
+
+
     login(data) {
 
-        return this.http.post('user/login', data).pipe(tap(async (resposne: any) => {
-            if (resposne.result) {
+        return this.http.post('account/login', data).pipe(tap(async (resposne: any) => {
+            if (resposne.Success) {
                 //   console.log(resposne)
                 const data = {
-                    token: resposne.token
+                    token: resposne.Result.Token
                 }
-                const decodedToken = jwt_decode(resposne.token);
-                this.loggedInuser.next(decodedToken);
+
+                const decodedToken = jwt_decode(resposne.Result.Token);
+                const userModel = {
+                    Email: decodedToken.email,
+                    DisplayName: decodedToken.name,
+                    UserId: decodedToken.nameid,
+                    Role: 'customer',
+                }
+                console.log(userModel)
+                this.loggedInuser.next(userModel);
                 await this.storage.set("currentUser", data);
 
                 return ({ result: true, message: 'success' });
@@ -44,6 +63,8 @@ export class AuthenticationService {
             } else {
                 return ({ result: false, message: 'Login faild . Wrong email or password' });
             }
+        },err=>{
+            return ({ result: false, message: 'Login faild . Wrong email or password' });
         }))
 
 
@@ -52,8 +73,8 @@ export class AuthenticationService {
 
     register(data) {
 
-        return this.http.post('user/register', data).pipe(tap(async (resposne: any) => {
-            if (resposne.result) {
+        return this.http.post('account/register', data).pipe(tap(async (resposne: any) => {
+            if (resposne.Success) {
 
                 return ({ result: true, message: 'success' });
 
@@ -77,17 +98,19 @@ export class AuthenticationService {
 
     async getCurrentUser() {
         return this.storage.get('currentUser').then(resposne => {
-            if(resposne){
+            if (resposne) {
                 const decodedToken = jwt_decode(resposne.token);
                 return decodedToken
             }
             return null;
-          
+
         })
 
 
 
     }
+
+
 
 
     passwordResetRequest(email: string) {
@@ -96,7 +119,7 @@ export class AuthenticationService {
         );
     }
 
- 
+
 
     passwordReset(email: string, token: string, password: string, confirmPassword: string): any {
         return of(true).pipe(
@@ -109,7 +132,7 @@ export class AuthenticationService {
         return this.http.get('user/' + userId);
     }
 
-    changePassword(userId,data) {
+    changePassword(userId, data) {
         return this.http.post('user/changePassword/' + userId, data);
     }
 
@@ -117,6 +140,6 @@ export class AuthenticationService {
         return this.http.post('user/' + userId, userdata);
     }
     sendMail(userdata) {
-            return this.http.post('sendmail' , userdata);
+        return this.http.post('sendmail', userdata);
     }
 }

@@ -9,12 +9,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedDataModule } from './shared-data/shared-data.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './shared-data/core/core.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { HttpWithInjectorModule } from './shared-data/http-with-injector/http-with-injector.module';
+import {HttpInspectorService} from './shared-data/http-with-injector/http-inspector.service';
+//androidx.core.content.FileProvider
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,7 +30,7 @@ import { File } from '@ionic-native/file/ngx';
     
     IonicStorageModule.forRoot(),
     CoreModule,
-    
+    // HttpWithInjectorModule
   ],
   providers: [
     
@@ -37,7 +40,12 @@ import { File } from '@ionic-native/file/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
-    File
+    File,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInspectorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
